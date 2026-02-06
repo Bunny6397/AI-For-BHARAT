@@ -8,6 +8,7 @@ import {
   Eye, 
   TrendingUp 
 } from "lucide-react";
+import aiBrainImage from "@/assets/ai-brain.jpeg";
 
 const AIIntelligence = () => {
   const capabilities = [
@@ -101,7 +102,7 @@ const AIIntelligence = () => {
               
               {/* Main AI Brain Ecosystem Image */}
               <img
-                src="WhatsApp Image 2026-02-05 at 23.33.40.jpeg"
+                src={aiBrainImage}
                 alt="VitaLens AI Intelligence System"
                 className="relative z-10 w-full max-w-lg mx-auto rounded-2xl shadow-2xl"
               />
