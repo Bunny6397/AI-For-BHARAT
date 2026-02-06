@@ -4,7 +4,7 @@ import Footer from "@/components/sections/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Activity, Droplet, Wind, Calendar, User, Bell, AlertCircle, CheckCircle, Info } from "lucide-react";
+import { Heart, Activity, Droplet, Wind, Calendar, User, Bell, AlertCircle, CheckCircle, Info, Brain, Waves } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const Dashboard = () => {
@@ -249,23 +249,22 @@ const Dashboard = () => {
                 <CardContent>
                   <div className="grid grid-cols-5 gap-4">
                     {[
-                      { name: "Heart", gradient: "from-rose-500/20 to-pink-500/20", img: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=200&h=200&fit=crop" },
-                      { name: "Lungs", gradient: "from-blue-500/20 to-cyan-500/20", img: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=200&h=200&fit=crop" },
-                      { name: "Liver", gradient: "from-orange-500/20 to-amber-500/20", img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=200&h=200&fit=crop" },
-                      { name: "Kidney", gradient: "from-purple-500/20 to-pink-500/20", img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=200&fit=crop" },
-                      { name: "Brain", gradient: "from-indigo-500/20 to-purple-500/20", img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=200&h=200&fit=crop" },
-                    ].map((organ) => (
-                      <div key={organ.name} className="text-center cursor-pointer" onClick={() => setSelectedOrgan(organ.name)}>
-                        <div className={`w-full aspect-square bg-gradient-to-br ${organ.gradient} rounded-lg mb-2 overflow-hidden hover:scale-105 transition-transform`}>
-                          <img 
-                            src={organ.img}
-                            alt={organ.name}
-                            className="w-full h-full object-cover"
-                          />
+                      { name: "Heart", gradient: "from-rose-500/20 to-pink-500/20", icon: Heart, color: "text-rose-500" },
+                      { name: "Lungs", gradient: "from-blue-500/20 to-cyan-500/20", icon: Wind, color: "text-blue-500" },
+                      { name: "Liver", gradient: "from-orange-500/20 to-amber-500/20", icon: Activity, color: "text-orange-500" },
+                      { name: "Kidney", gradient: "from-purple-500/20 to-pink-500/20", icon: Droplet, color: "text-purple-500" },
+                      { name: "Brain", gradient: "from-indigo-500/20 to-purple-500/20", icon: Brain, color: "text-indigo-500" },
+                    ].map((organ) => {
+                      const IconComponent = organ.icon;
+                      return (
+                        <div key={organ.name} className="text-center cursor-pointer" onClick={() => setSelectedOrgan(organ.name)}>
+                          <div className={`w-full aspect-square bg-gradient-to-br ${organ.gradient} rounded-lg mb-2 flex items-center justify-center hover:scale-105 transition-transform`}>
+                            <IconComponent className={`w-12 h-12 ${organ.color}`} />
+                          </div>
+                          <div className="text-xs text-muted-foreground">{organ.name}</div>
                         </div>
-                        <div className="text-xs text-muted-foreground">{organ.name}</div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
