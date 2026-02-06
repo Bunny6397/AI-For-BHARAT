@@ -323,21 +323,45 @@ const Dashboard = () => {
               {/* Calendar Widget */}
               <Card className="glass-card">
                 <CardHeader>
-                  <CardTitle className="text-sm">February 2026</CardTitle>
+                  <CardTitle className="text-sm">
+                    {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-7 gap-2 text-center text-xs">
                     {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day) => (
                       <div key={day} className="text-muted-foreground font-semibold">{day}</div>
                     ))}
-                    {Array.from({length: 28}).map((_, i) => (
-                      <div 
-                        key={i} 
-                        className={`p-2 rounded ${i === 4 ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
-                      >
-                        {i + 1}
-                      </div>
-                    ))}
+                    {(() => {
+                      const today = new Date();
+                      const currentDay = today.getDate();
+                      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+                      const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+                      const days = [];
+                      
+                      // Empty cells for days before month starts
+                      for (let i = 0; i < firstDay; i++) {
+                        days.push(<div key={`empty-${i}`} className="p-2"></div>);
+                      }
+                      
+                      // Days of the month
+                      for (let i = 1; i <= daysInMonth; i++) {
+                        days.push(
+                          <div 
+                            key={i} 
+                            className={`p-2 rounded ${
+                              i === currentDay 
+                                ? 'bg-primary text-primary-foreground' 
+                                : 'hover:bg-muted'
+                            }`}
+                          >
+                            {i}
+                          </div>
+                        );
+                      }
+                      
+                      return days;
+                    })()}
                   </div>
                 </CardContent>
               </Card>
