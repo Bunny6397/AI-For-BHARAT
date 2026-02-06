@@ -24,7 +24,7 @@ const Footer = () => {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            © 2025 VitaLens. All rights reserved.
+            © 2026 VitaLens. All rights reserved.
           </p>
         </div>
       </div>
@@ -36,7 +36,7 @@ const Footer = () => {
           <DialogTitle className="text-2xl gradient-text">Privacy Policy</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 text-sm text-muted-foreground">
-          <p><strong>Last Updated:</strong> February 2025</p>
+          <p><strong>Last Updated:</strong> February 2026</p>
           
           <div>
             <h3 className="text-foreground font-semibold mb-2">1. Information We Collect</h3>
@@ -77,7 +77,7 @@ const Footer = () => {
           <DialogTitle className="text-2xl gradient-text">Terms of Service</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 text-sm text-muted-foreground">
-          <p><strong>Last Updated:</strong> February 2025</p>
+          <p><strong>Last Updated:</strong> February 2026</p>
           
           <div>
             <h3 className="text-foreground font-semibold mb-2">1. Acceptance of Terms</h3>
