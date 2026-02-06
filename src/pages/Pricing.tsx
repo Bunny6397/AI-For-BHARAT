@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
@@ -5,24 +6,55 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Check } from "lucide-react";
 
 const Pricing = () => {
+  const navigate = useNavigate();
   const plans = [
     {
-      name: "Basic",
-      price: "₹2,399",
-      description: "Perfect for individuals",
-      features: ["Basic eye health analysis", "Monthly reports", "Email support"]
+      name: "VitaLens Care",
+      edition: "Elderly Edition",
+      price: "₹2,999",
+      description: "Perfect for elderly care and monitoring",
+      features: [
+        "Heart Rate & SpO₂ Monitoring",
+        "Sleep + Fall Detection",
+        "SOS Alert with GPS & Caregiver Notification"
+      ],
+      buttonText: "Buy Care Edition"
     },
     {
-      name: "Pro",
-      price: "₹6,499",
-      description: "For healthcare professionals",
-      features: ["Advanced AI analysis", "Real-time monitoring", "Priority support", "Custom reports"]
+      name: "VitaLens Focus",
+      edition: "Student & Professional Edition",
+      price: "₹3,499",
+      description: "For students and professionals",
+      features: [
+        "Stress & burnout tracking (HRV-based)",
+        "Sleep schedule reminders",
+        "UV & AQI wellness alerts"
+      ],
+      buttonText: "Buy Focus Edition"
     },
     {
-      name: "Enterprise",
-      price: "Custom",
-      description: "For healthcare institutions",
-      features: ["Full platform access", "API integration", "24/7 support", "Custom deployment"]
+      name: "VitaLens AirGuard",
+      edition: "Respiratory Safety Edition",
+      price: "₹4,499",
+      description: "For respiratory health monitoring",
+      features: [
+        "Real-time AQI / PM2.5 monitoring",
+        "Pollution exposure tracking",
+        "Respiratory risk alerts (Asthma/COPD support)"
+      ],
+      buttonText: "Buy AirGuard Edition"
+    },
+    {
+      name: "VitaLens MedAssist",
+      edition: "Clinical Edition",
+      price: "₹5,999",
+      description: "For healthcare professionals and patients",
+      features: [
+        "Medical report & scan assistance via app",
+        "Medicine scanning + reminders",
+        "Remote patient monitoring support"
+      ],
+      buttonText: "Buy MedAssist Edition"
     }
   ];
 
@@ -33,32 +65,37 @@ const Pricing = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-display font-bold gradient-text mb-6">
-              Choose Your Plan
+              VitaLens Editions
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Select the perfect plan for your eye health monitoring needs
+              Choose the perfect edition for your health monitoring needs
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {plans.map((plan, index) => (
-              <Card key={plan.name} className={`glass-card ${index === 1 ? 'border-primary' : ''}`}>
+              <Card key={plan.name} className="glass-card">
                 <CardHeader>
-                  <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <CardDescription>{plan.description}</CardDescription>
-                  <div className="text-3xl font-bold gradient-text">{plan.price}</div>
+                  <CardTitle className="text-xl">{plan.name}</CardTitle>
+                  <CardDescription className="text-sm font-semibold">{plan.edition}</CardDescription>
+                  <CardDescription className="mt-2">{plan.description}</CardDescription>
+                  <div className="text-2xl font-bold gradient-text mt-2">{plan.price}</div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 mb-6">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2">
-                        <Check className="w-5 h-5 text-primary" />
-                        <span>{feature}</span>
+                      <li key={feature} className="flex items-start gap-2">
+                        <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <Button variant={index === 1 ? "hero" : "outline"} className="w-full">
-                    Buy Now
+                  <Button 
+                    variant="outline" 
+                    className="w-full"
+                    onClick={() => navigate(`/checkout?edition=${encodeURIComponent(plan.name)}&price=${encodeURIComponent(plan.price)}`)}
+                  >
+                    {plan.buttonText}
                   </Button>
                 </CardContent>
               </Card>

@@ -1,11 +1,67 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/sections/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Heart, Activity, Droplet, Wind, Calendar, User, Bell } from "lucide-react";
+import { Heart, Activity, Droplet, Wind, Calendar, User, Bell, AlertCircle, CheckCircle, Info } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const Dashboard = () => {
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const notifications = [
+    {
+      id: 1,
+      type: "success",
+      icon: CheckCircle,
+      title: "Daily Goal Achieved",
+      message: "You've reached your step goal of 8,000 steps today!",
+      time: "5 min ago",
+      color: "text-green-500",
+      bgColor: "bg-green-500/10",
+    },
+    {
+      id: 2,
+      type: "warning",
+      icon: AlertCircle,
+      title: "High Stress Detected",
+      message: "Your heart rate variability indicates elevated stress. Consider taking a break.",
+      time: "1 hour ago",
+      color: "text-yellow-500",
+      bgColor: "bg-yellow-500/10",
+    },
+    {
+      id: 3,
+      type: "info",
+      icon: Info,
+      title: "Appointment Reminder",
+      message: "You have an appointment with Dr. Sarah Johnson today at 3:00 PM.",
+      time: "2 hours ago",
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
+    },
+    {
+      id: 4,
+      type: "success",
+      icon: CheckCircle,
+      title: "Sleep Quality Good",
+      message: "You had 7.5 hours of quality sleep last night. Keep it up!",
+      time: "8 hours ago",
+      color: "text-green-500",
+      bgColor: "bg-green-500/10",
+    },
+    {
+      id: 5,
+      type: "info",
+      icon: Info,
+      title: "Hydration Reminder",
+      message: "Don't forget to drink water. You're at 6/8 cups today.",
+      time: "3 hours ago",
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
+    },
+  ];
   return (
     <main className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
@@ -17,9 +73,12 @@ const Dashboard = () => {
               <h1 className="text-3xl font-display font-bold gradient-text mb-2">Heart Overview</h1>
               <p className="text-muted-foreground">Real-time health monitoring dashboard</p>
             </div>
-            <Button variant="hero">
+            <Button variant="hero" onClick={() => setShowNotifications(true)}>
               <Bell className="w-4 h-4 mr-2" />
               Notifications
+              <span className="ml-2 px-2 py-0.5 bg-red-500 text-white text-xs rounded-full">
+                {notifications.length}
+              </span>
             </Button>
           </div>
 
@@ -286,6 +345,46 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={showNotifications} onOpenChange={setShowNotifications}>
+        <DialogContent className="glass-card max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl gradient-text flex items-center gap-2">
+              <Bell className="w-6 h-6" />
+              Notifications
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 mt-4">
+            {notifications.map((notification) => {
+              const Icon = notification.icon;
+              return (
+                <div
+                  key={notification.id}
+                  className={`p-4 rounded-lg ${notification.bgColor} border border-transparent hover:border-primary/20 transition-all cursor-pointer`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className={`${notification.color} mt-1`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-1">
+                        <h4 className="font-semibold text-sm">{notification.title}</h4>
+                        <span className="text-xs text-muted-foreground">{notification.time}</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{notification.message}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-4 pt-4 border-t">
+            <Button variant="outline" className="w-full" onClick={() => setShowNotifications(false)}>
+              Mark All as Read
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
       <Footer />
     </main>
   );

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,28 +16,19 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  const [status, setStatus] = useState('');
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('sending');
     
-    try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        setStatus('success');
-        setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
-      }
-    } catch (error) {
-      setStatus('error');
-    }
+    // Simulate form submission
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+    });
+    
+    // Reset form
+    setFormData({ firstName: '', lastName: '', email: '', subject: '', message: '' });
   };
   return (
     <main className="min-h-screen bg-background overflow-x-hidden">
@@ -74,7 +66,7 @@ const Contact = () => {
                   <MapPin className="w-6 h-6 text-primary" />
                   <div>
                     <p className="font-semibold">Address</p>
-                    <p className="text-muted-foreground">Tower A, Cyber City<br />Gurugram, Haryana 122002<br />India</p>
+                    <p className="text-muted-foreground">Teerthanker Mahaveer University<br />Moradabad 244001<br />India</p>
                   </div>
                 </div>
               </div>
@@ -121,15 +113,9 @@ const Contact = () => {
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     required
                   />
-                  <Button variant="hero" className="w-full" type="submit" disabled={status === 'sending'}>
-                    {status === 'sending' ? 'Sending...' : 'Send Message'}
+                  <Button variant="hero" className="w-full" type="submit">
+                    Send Message
                   </Button>
-                  {status === 'success' && (
-                    <p className="text-green-500 text-sm">Message sent successfully!</p>
-                  )}
-                  {status === 'error' && (
-                    <p className="text-red-500 text-sm">Failed to send message. Please try again.</p>
-                  )}
                 </form>
               </CardContent>
             </Card>

@@ -1,9 +1,30 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Download, Cpu } from "lucide-react";
+import { Download, Cpu, Smartphone } from "lucide-react";
 import demoVideo from "@/assets/demo-video.mp4";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 
 const Hero = () => {
+  const [showDownload, setShowDownload] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleDownload = (platform: string) => {
+    toast({
+      title: "Coming Soon!",
+      description: `VitaLens app for ${platform} will be available soon. Stay tuned!`,
+    });
+    setShowDownload(false);
+  };
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-glow">
       {/* Background grid */}
@@ -40,11 +61,11 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Button variant="heroOutline" size="xl">
+              <Button variant="heroOutline" size="xl" onClick={() => setShowDownload(true)}>
                 <Download className="w-5 h-5" />
                 Download App
               </Button>
-              <Button variant="heroOutline" size="xl">
+              <Button variant="heroOutline" size="xl" onClick={() => navigate("/technology")}>
                 <Cpu className="w-5 h-5" />
                 Explore Technology
               </Button>
@@ -111,6 +132,41 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      <Dialog open={showDownload} onOpenChange={setShowDownload}>
+        <DialogContent className="glass-card">
+          <DialogHeader>
+            <DialogTitle className="text-2xl gradient-text">Download VitaLens App</DialogTitle>
+            <DialogDescription>
+              Choose your platform to download the VitaLens mobile app
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <Button 
+              variant="outline" 
+              className="w-full justify-start h-auto py-4"
+              onClick={() => handleDownload("Android")}
+            >
+              <Smartphone className="w-8 h-8" />
+              <div className="text-left ml-4">
+                <div className="font-semibold">Download for Android</div>
+                <div className="text-sm text-muted-foreground">Get it on Google Play</div>
+              </div>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start h-auto py-4"
+              onClick={() => handleDownload("iOS")}
+            >
+              <Smartphone className="w-8 h-8" />
+              <div className="text-left ml-4">
+                <div className="font-semibold">Download for iOS</div>
+                <div className="text-sm text-muted-foreground">Available on the App Store</div>
+              </div>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: "Features", path: "/features" },
     { name: "Technology", path: "/technology" },
     { name: "Dashboard", path: "/dashboard" },
-    { name: "Pricing", path: "/pricing" },
+    { name: "Shop", path: "/pricing" },
     { name: "Contact", path: "/contact" }
   ];
   
@@ -52,7 +52,7 @@ const Navbar = () => {
           {/* CTA */}
           <div className="hidden md:block">
             <Button variant="hero" size="default" asChild>
-              <Link to="/contact">Get Started</Link>
+              <Link to="/">Get Started</Link>
             </Button>
           </div>
 
@@ -87,7 +87,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Button variant="hero" size="default" className="w-full" asChild>
-              <Link to="/contact">Get Started</Link>
+              <Link to="/">Get Started</Link>
             </Button>
           </motion.div>
         )}
