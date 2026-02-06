@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 
 const Dashboard = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [selectedOrgan, setSelectedOrgan] = useState<string | null>(null);
 
   const notifications = [
     {
@@ -62,6 +63,59 @@ const Dashboard = () => {
       bgColor: "bg-blue-500/10",
     },
   ];
+
+  const organData = {
+    Heart: {
+      status: "Healthy",
+      rate: "72 BPM",
+      analysis: "Your heart rate is within normal range. Cardiovascular health is good.",
+      metrics: [
+        { label: "Resting Heart Rate", value: "72 BPM", status: "Normal" },
+        { label: "Blood Pressure", value: "120/80", status: "Optimal" },
+        { label: "Heart Rate Variability", value: "65 ms", status: "Good" },
+      ],
+    },
+    Lungs: {
+      status: "Good",
+      rate: "16/min",
+      analysis: "Respiratory function is normal. Oxygen saturation levels are excellent.",
+      metrics: [
+        { label: "Respiration Rate", value: "16/min", status: "Normal" },
+        { label: "SpO₂ Level", value: "98%", status: "Excellent" },
+        { label: "Lung Capacity", value: "4.5L", status: "Good" },
+      ],
+    },
+    Liver: {
+      status: "Normal",
+      rate: "Functional",
+      analysis: "Liver enzymes are within normal range. No abnormalities detected.",
+      metrics: [
+        { label: "ALT Level", value: "25 U/L", status: "Normal" },
+        { label: "AST Level", value: "22 U/L", status: "Normal" },
+        { label: "Bilirubin", value: "0.8 mg/dL", status: "Normal" },
+      ],
+    },
+    Kidney: {
+      status: "Healthy",
+      rate: "Filtering",
+      analysis: "Kidney function is optimal. Filtration rate is within healthy range.",
+      metrics: [
+        { label: "GFR", value: "95 mL/min", status: "Normal" },
+        { label: "Creatinine", value: "0.9 mg/dL", status: "Normal" },
+        { label: "BUN", value: "15 mg/dL", status: "Normal" },
+      ],
+    },
+    Brain: {
+      status: "Active",
+      rate: "Alert",
+      analysis: "Cognitive function is normal. Stress levels are manageable.",
+      metrics: [
+        { label: "Stress Level", value: "Low", status: "Good" },
+        { label: "Sleep Quality", value: "7.5 hrs", status: "Good" },
+        { label: "Focus Score", value: "85%", status: "High" },
+      ],
+    },
+  };
   return (
     <main className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
@@ -194,56 +248,24 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-5 gap-4">
-                    <div className="text-center">
-                      <div className="w-full aspect-square bg-gradient-to-br from-rose-500/20 to-pink-500/20 rounded-lg mb-2 overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=200&h=200&fit=crop" 
-                          alt="Heart" 
-                          className="w-full h-full object-cover"
-                        />
+                    {[
+                      { name: "Heart", gradient: "from-rose-500/20 to-pink-500/20", img: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=200&h=200&fit=crop" },
+                      { name: "Lungs", gradient: "from-blue-500/20 to-cyan-500/20", img: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=200&h=200&fit=crop" },
+                      { name: "Liver", gradient: "from-orange-500/20 to-amber-500/20", img: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=200&h=200&fit=crop" },
+                      { name: "Kidney", gradient: "from-purple-500/20 to-pink-500/20", img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=200&fit=crop" },
+                      { name: "Brain", gradient: "from-indigo-500/20 to-purple-500/20", img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=200&h=200&fit=crop" },
+                    ].map((organ) => (
+                      <div key={organ.name} className="text-center cursor-pointer" onClick={() => setSelectedOrgan(organ.name)}>
+                        <div className={`w-full aspect-square bg-gradient-to-br ${organ.gradient} rounded-lg mb-2 overflow-hidden hover:scale-105 transition-transform`}>
+                          <img 
+                            src={organ.img}
+                            alt={organ.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="text-xs text-muted-foreground">{organ.name}</div>
                       </div>
-                      <div className="text-xs text-muted-foreground">Heart</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-full aspect-square bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-lg mb-2 overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=200&h=200&fit=crop" 
-                          alt="Lungs" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="text-xs text-muted-foreground">Lungs</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-full aspect-square bg-gradient-to-br from-orange-500/20 to-amber-500/20 rounded-lg mb-2 overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=200&h=200&fit=crop" 
-                          alt="Liver" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="text-xs text-muted-foreground">Liver</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-full aspect-square bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg mb-2 overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=200&h=200&fit=crop" 
-                          alt="Kidney" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="text-xs text-muted-foreground">Kidney</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="w-full aspect-square bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-lg mb-2 overflow-hidden">
-                        <img 
-                          src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=200&h=200&fit=crop" 
-                          alt="Brain" 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="text-xs text-muted-foreground">Brain</div>
-                    </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
@@ -407,6 +429,50 @@ const Dashboard = () => {
               Mark All as Read
             </Button>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={selectedOrgan !== null} onOpenChange={() => setSelectedOrgan(null)}>
+        <DialogContent className="glass-card max-w-2xl">
+          {selectedOrgan && organData[selectedOrgan as keyof typeof organData] && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl gradient-text">{selectedOrgan} Analysis</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4 mt-4">
+                <div className="flex items-center justify-between p-4 bg-primary/10 rounded-lg">
+                  <div>
+                    <div className="text-sm text-muted-foreground">Status</div>
+                    <div className="text-xl font-bold">{organData[selectedOrgan as keyof typeof organData].status}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Rate</div>
+                    <div className="text-xl font-bold gradient-text">{organData[selectedOrgan as keyof typeof organData].rate}</div>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-secondary/50 rounded-lg">
+                  <h4 className="font-semibold mb-2">Analysis</h4>
+                  <p className="text-sm text-muted-foreground">{organData[selectedOrgan as keyof typeof organData].analysis}</p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-3">Detailed Metrics</h4>
+                  <div className="space-y-3">
+                    {organData[selectedOrgan as keyof typeof organData].metrics.map((metric, i) => (
+                      <div key={i} className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+                        <div>
+                          <div className="text-sm font-medium">{metric.label}</div>
+                          <div className="text-xs text-muted-foreground">{metric.status}</div>
+                        </div>
+                        <div className="text-lg font-bold gradient-text">{metric.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </DialogContent>
       </Dialog>
       <Footer />
