@@ -11,7 +11,7 @@ const Pricing = () => {
     {
       name: "VitaLens Care",
       edition: "Elderly Edition",
-      price: "₹2,999",
+      price: "Contact for Pricing",
       description: "Perfect for elderly care and monitoring",
       features: [
         "Heart Rate & SpO₂ Monitoring",
@@ -23,7 +23,7 @@ const Pricing = () => {
     {
       name: "VitaLens Focus",
       edition: "Student & Professional Edition",
-      price: "₹3,499",
+      price: "Contact for Pricing",
       description: "For students and professionals",
       features: [
         "Stress & burnout tracking (HRV-based)",
@@ -35,7 +35,7 @@ const Pricing = () => {
     {
       name: "VitaLens AirGuard",
       edition: "Respiratory Safety Edition",
-      price: "₹4,499",
+      price: "Contact for Pricing",
       description: "For respiratory health monitoring",
       features: [
         "Real-time AQI / PM2.5 monitoring",
@@ -47,7 +47,7 @@ const Pricing = () => {
     {
       name: "VitaLens MedAssist",
       edition: "Clinical Edition",
-      price: "₹5,999",
+      price: "Contact for Pricing",
       description: "For healthcare professionals and patients",
       features: [
         "Medical report & scan assistance via app",
