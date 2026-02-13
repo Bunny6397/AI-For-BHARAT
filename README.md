@@ -1,4 +1,12 @@
-# Welcome to your Lovable project
+# VitaLens AI - Smart Healthcare Monitoring System
+
+## 📋 Project Documentation
+
+**📖 [Requirements Document](requirements.md)** - Complete project requirements, features, and specifications
+
+**🎨 [Design Document](design.md)** - System architecture, technical design, and implementation details
+
+---
 
 ## Project info
 
